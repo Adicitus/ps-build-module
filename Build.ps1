@@ -1,28 +1,46 @@
+# Build.ps1 - ps-build-module - https://github.com/Adicitus/ps-build-module
 
+<#
+Build script used to compile PS Modules arranged as:
+ [ProjectRoot Dir]
+    |- "source" folder
+    |  |- 0-1 ".assets" folder.
+    |  |- 0-* .ps1 files.
+    |  |- 0-* additional nested source folders.
+    |- "build.settings" folder
+       |- modulename.ps1
+       |- "manifest" folder
+          |- Manifest setting file(s)
+
+The script will take all of the .ps1 under the "source" folder and flatten them into a
+single .psm1 file under "$OutRoot\$modulename\" directory. All assets in the .assets
+folders will similarly be combined in a ".assets" folder under "$OutRoot\$modulename\".
+#>
 
 param(
-    $OutRoot="$PSScriptRoot\out"
+    $ProjectRoot =   $PSScriptRoot,
+    $OutRoot    =   "$ProjectRoot\out"
 )
 
 # Build manifest
 $manifestArgs = @{}
 $buildArgs = @{}
 
-Get-ChildItem "$PSScriptRoot\build.settings" -File | ForEach-Object {
+Get-ChildItem "$ProjectRoot\build.settings" -File | ForEach-Object {
     $name = $_.Name.split(".")[0]
     $buildArgs.$name = & $_.FullName
 }
 
-Get-ChildItem "$PSScriptRoot\build.settings\manifest" -File | ForEach-Object {
+Get-ChildItem "$ProjectRoot\build.settings\manifest" -File | ForEach-Object {
     $name = $_.Name.split(".")[0]
     $manifestArgs.$name = & $_.FullName
 }
 
 $moduleName = $buildArgs.modulename
 
+$SrcDir = "$ProjectRoot\source"
 $outDir = "$OutRoot\$moduleName"
 $assetsOutDir = "$outDir\.assets"
-$srcDir = "$PSScriptRoot\source"
 
 $moduleFile     = "{0}\{1}.psm1" -f $outDir, $moduleName
 $manifestFile   = "{0}\{1}.psd1" -f $outDir, $moduleName
@@ -65,17 +83,17 @@ $addFolder = {
 . $addFolder (Get-Item $srcDir)
 
 # Then include subfolders
-Get-ChildItem $srcDir -Directory | ForEach-Object {
+Get-ChildItem $srcDir -Directory -Exclude .assets | ForEach-Object {
     $item = $_
 
     . $addFolder $item $item.Name
 }
 
+# Generate the manifest
 New-ModuleManifest -Path $manifestFile @manifestArgs
 
-$manifest = Get-Content $manifestFile
-
 # Trim the manifest
+$manifest = Get-Content $manifestFile
 Remove-Item $manifestFile
 
 $manifest | Where-Object {
