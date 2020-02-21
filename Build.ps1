@@ -15,6 +15,9 @@ Build script used to compile PS Modules arranged as:
 The script will take all of the .ps1 under the "source" folder and flatten them into a
 single .psm1 file under "$OutRoot\$modulename\" directory. All assets in the .assets
 folders will similarly be combined in a ".assets" folder under "$OutRoot\$modulename\".
+
+The .ps1 files i a directory will be processed in lexicographical order. Subdirectories
+will also be processed in this order.
 #>
 
 param(
@@ -73,7 +76,7 @@ $addFolder = {
         }
     }
 
-    Get-ChildItem $item.FullName -Filter *.ps1 | ForEach-Object {
+    Get-ChildItem $item.FullName -Filter *.ps1 | Sort-Object -Property Name | ForEach-Object {
         Get-Content $_.FullName >> $moduleFile
     }
 
@@ -83,7 +86,7 @@ $addFolder = {
 . $addFolder (Get-Item $srcDir)
 
 # Then include subfolders
-Get-ChildItem $srcDir -Directory -Exclude .assets | ForEach-Object {
+Get-ChildItem $srcDir -Directory -Exclude .assets | Sort-Object -Property Name | ForEach-Object {
     $item = $_
 
     . $addFolder $item $item.Name
