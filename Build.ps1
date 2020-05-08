@@ -31,12 +31,20 @@ $buildArgs = @{}
 
 Get-ChildItem "$ProjectRoot\build.settings" -File | ForEach-Object {
     $name = $_.Name.split(".")[0]
-    $buildArgs.$name = & $_.FullName
+    if ($_.name -like "*.ps1") {
+        $buildArgs.$name = & $_.FullName
+    } else {
+        $buildArgs.$name = Get-Content $_.FullName
+    }
 }
 
 Get-ChildItem "$ProjectRoot\build.settings\manifest" -File | ForEach-Object {
     $name = $_.Name.split(".")[0]
-    $manifestArgs.$name = & $_.FullName
+    if ($_.name -like "*.ps1") {
+        $manifestArgs.$name = & $_.FullName
+    } else {
+        $manifestArgs.$name = Get-Content $_.FullName
+    }
 }
 
 $moduleName = $buildArgs.modulename
