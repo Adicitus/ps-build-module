@@ -1,1 +1,1 @@
-"'Just some guy, you know?'"
+"Joakim Olsson <joakim.olsson@cornerstone.se>"

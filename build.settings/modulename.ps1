@@ -1,1 +1,1 @@
-"TheModuleName"
+"PSBuildModule"
