@@ -55,6 +55,10 @@ function Build-ModuleProject {
 
     $moduleName = $buildArgs.modulename
 
+    if (-not $moduleName) {
+        throw "No module name set ('-not `$modulename' evaluates to `$false)!"
+    }
+
     $SrcDir = "$ProjectRoot\source"
     $outDir = "$OutRoot\$moduleName"
     $assetsOutDir = "$outDir\.assets"

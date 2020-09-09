@@ -1,6 +1,6 @@
 param(
-    [Parameter(Mandatory=$true, Position=1)]
-    [string]$ProjectRoot,
+    [Parameter(Mandatory=$false, Position=1)]
+    [string]$ProjectRoot=$PSScriptRoot,
     [Parameter(Mandatory=$false, Position=2)]
     [string]$OutRoot = "$ProjectRoot\out"
 )

@@ -13,7 +13,7 @@ function Initialize-ModuleProjectDirectory{
     )
 
     if (Test-Path $ProjectDirectoryPath -PathType Container) {
-        throw ("Unable to initialize module projectat '{0}', the directory already exists." -f $ProjectDirectoryPath)
+        throw ("Unable to initialize module project at '{0}', the directory already exists." -f $ProjectDirectoryPath)
     }
     mkdir $ProjectDirectoryPath
 
