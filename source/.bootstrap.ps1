@@ -1,0 +1,1 @@
+New-Alias -Name Build-ModuleProject -Value Export-ModuleProject

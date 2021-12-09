@@ -5,7 +5,7 @@ param(
     [string]$OutRoot = "$ProjectRoot\out"
 )
 
-. "$PSScriptRoot\source\Build-ModuleProject.ps1"
+. "$PSScriptRoot\source\Export-ModuleProject.ps1"
 
 $args = @{
     ProjectRoot = $ProjectRoot
@@ -15,4 +15,4 @@ if ($OutRoot) {
     $args.OutRoot = $OutRoot
 }
 
-Build-ModuleProject @args
+Export-ModuleProject @args

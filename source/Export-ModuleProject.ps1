@@ -20,12 +20,12 @@ The .ps1 files i a directory will be processed in lexicographical order. Subdire
 will also be processed in this order.
 #>
 
-function Build-ModuleProject {
+function Export-ModuleProject {
     [CmdletBinding()]
     param(
         [ValidateNotNullOrEmpty()]
-        [Parameter(Mandatory=$true, Position=1)]
-        [string]$ProjectRoot,
+        [Parameter(Mandatory=$false, Position=1)]
+        [string]$ProjectRoot=".",
         [ValidateNotNullOrEmpty()]
         [Parameter(Mandatory=$false, Position=2)]
         [string]$OutRoot = "$ProjectRoot\out"
