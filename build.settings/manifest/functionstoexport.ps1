@@ -1,4 +1,4 @@
 @(
-    "Build-ModuleProject"
+    "Export-ModuleProject"
     "Initialize-ModuleProjectDirectory"
 )
