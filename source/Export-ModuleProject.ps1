@@ -49,7 +49,7 @@ function Export-ModuleProject {
         if ($_.name -like "*.ps1") {
             $manifestArgs.$name = & $_.FullName
         } else {
-            $manifestArgs.$name = Get-Content $_.FullName
+            $manifestArgs.$name = (Get-Content $_.FullName) -join "`n"
         }
     }
 
@@ -114,16 +114,4 @@ function Export-ModuleProject {
 
     # Generate the manifest
     New-ModuleManifest -Path $manifestFile @manifestArgs
-
-    # Trim the manifest
-    $manifest = Get-Content $manifestFile
-    Remove-Item $manifestFile
-
-    $manifest | Where-Object {
-        $_ -notmatch "^\s*$"
-    } | Where-Object {
-        $_ -notmatch "^\s*\#"
-    } | ForEach-Object {
-        $_ -replace "\#.*$", "" >> $manifestFile
-    }
 }
