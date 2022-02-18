@@ -1,4 +1,4 @@
-function Initialize-ModuleProjectDirectory{
+function Initialize-PSModuleProject{
     [CmdletBinding()]
     param(
         [Parameter(Mandatory=$true, Position=1)]

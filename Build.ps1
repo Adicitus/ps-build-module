@@ -5,7 +5,7 @@ param(
     [string]$OutRoot = "$ProjectRoot\out"
 )
 
-. "$PSScriptRoot\source\Export-ModuleProject.ps1"
+. "$PSScriptRoot\source\Export-PSModuleProject.ps1"
 
 $args = @{
     ProjectRoot = $ProjectRoot

@@ -1,3 +1,4 @@
 @(
     "Build-ModuleProject"
+    "Initialize-ModuleProjectDirectory"
 )

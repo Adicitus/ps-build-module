@@ -20,7 +20,7 @@ The .ps1 files i a directory will be processed in lexicographical order. Subdire
 will also be processed in this order.
 #>
 
-function Export-ModuleProject {
+function Export-PSModuleProject {
     [CmdletBinding()]
     param(
         [ValidateNotNullOrEmpty()]
