@@ -1,7 +1,11 @@
 # Build.ps1 - ps-build-module - https://github.com/Adicitus/ps-build-module
 
 <#
-Build script used to compile PS Modules arranged as:
+.SYNOPSIS
+Cmdlet used to compile Module projects
+
+.DESCRIPTION
+Cmdlet used to compile Module projects arranged as:
  [ProjectRoot Dir]
     |- "source" folder
     |  |- 0-1 ".assets" folder.
@@ -95,7 +99,13 @@ function Export-PSModuleProject {
         }
 
         Get-ChildItem $item.FullName -Filter *.ps1 | Sort-Object -Property Name | ForEach-Object {
-            Get-Content $_.FullName >> $moduleFile
+            $fn = $_.FullName
+            $rn = $fn.remove(0, $fn.IndexOf('source'))
+            "" | Out-File  -FilePath $moduleFile -Append
+            "# START: {0}" -f $rn | Out-File -FilePath $moduleFile -Append
+            Get-Content $_.FullName | Out-File -FilePath $moduleFile -Append
+            "#   END: {0}" -f $rn | Out-File -FilePath $moduleFile -Append
+            "" | Out-File  -FilePath $moduleFile -Append
         }
 
     }
