@@ -1,5 +1,5 @@
 # ps-build-module
-Build script used to compile Module Projects into modules.
+Module to create Module Projects and build them into modules.
 
 ## Installation
 
@@ -24,7 +24,7 @@ The directory where the module folder should be generated.
 
 This defaults to './out' if not specified.
 
-#### Initialize-PSModuleProject
+### Initialize-PSModuleProject
 Used to initialize a new Module Project folder.
 
 #### Parameters
