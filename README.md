@@ -3,7 +3,7 @@ Build script used to compile Module Projects into modules.
 
 ## Installation
 
-This module can be installed from PSGallery, where it is called 'PSB>uildModule':
+This module can be installed from PSGallery, where it is called 'PSBuildModule':
 
 `Install-Module PSBuildModule`
 
