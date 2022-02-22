@@ -24,7 +24,7 @@ The directory where the module folder should be generated.
 
 This defaults to './out' if not specified.
 
-#### Initialize-ModuleProjectDirectory
+#### Initialize-PSModuleProject
 Used to initialize a new Module Project folder.
 
 #### Parameters
